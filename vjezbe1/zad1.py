@@ -20,8 +20,16 @@ def exponentialerror(x,epsilon):
             sa=sa-c
         sb=sb+sk
         sc=sc+c
+    file=open ("rezultati.txt", "a")
+    file.write(f"{x:3d} {sa:15.3e} {sb:15.3e} {1/sc:15.3e} {np.exp(-x):15.3e} {k:3d} \n")
+    file.close()
     print(x,sa,sb,1/sc,np.exp(-x),k)
+    
+
 #1e-10 greska, svi x-evi
+file=open ("rezultati.txt", "a")
+#file.write(f"{x:3d} {sa:15.3e} {sb:15.3e} {1/sc:15.3e} {np.exp(-x):15.3e} {k:3d} \n")
+file.close()
 for i in range (0,101,10):
     exponentialerror(i,1e-10)
 #1e-50 greska, svi x-evi
