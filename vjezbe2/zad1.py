@@ -1,0 +1,19 @@
+import numpy as np
+def derivacija(funkcija, x, h, metoda="unaprijed"):
+    if metoda=="unazad":
+        return (funkcija(x)-funkcija(x-h))/h
+    if metoda=="centralna":
+        return (funkcija(x+h)-funkcija(x-h))/(2*h)
+    elif metoda=="pettocka":
+        return (-funkcija(x+2*h)+8*funkcija(x+h)-8*funkcija(x-h)+funkcija(x-2*h))/(12*h)
+    else:
+        return (funkcija(x+h)-funkcija(x))/h
+with open("derivacije.txt","a") as file:
+    file.write("Derivacije funkcije e^x u tockama 0.5,1.5 i 2.5 za razlicite metode i h vrijednosti.\n")
+    file.write("Za vrijednosti x=0.5,1.5,2.5 , e^x poprima vrijednosti:\n {},{},{}\n".format(np.exp(0.5),np.exp(1.5),np.exp(2.5)))
+    file.write("Koristeci derivaciju unaprijed, iznosi derivacija e^x u tim tockama su:\n {},{} i {} za h=0.1 \n {},{} i {} za h=0.0001 i\n {},{} i {} za h=0.000001\n".format(derivacija(np.exp,0.5,0.1),derivacija(np.exp,1.5,0.1),derivacija(np.exp,2.5,0.1),derivacija(np.exp,0.5,0.0001),derivacija(np.exp,1.5,0.0001),derivacija(np.exp,2.5,0.0001),derivacija(np.exp,0.5,0.00000001),derivacija(np.exp,1.5,0.00000001),derivacija(np.exp,2.5,0.00000001)))
+    file.write("Koristeci derivaciju unazad, iznosi derivacija e^x u tim tockama su:\n {},{} i {} za h=0.1\n {},{} i {} za h=0.0001 i\n {},{} i {} za h=0.000001\n".format(derivacija(np.exp,0.5,0.1,"unazad"),derivacija(np.exp,1.5,0.1,"unazad"),derivacija(np.exp,2.5,0.1,"unazad"),derivacija(np.exp,0.5,0.0001,"unazad"),derivacija(np.exp,1.5,0.0001,"unazad"),derivacija(np.exp,2.5,0.0001,"unazad"),derivacija(np.exp,0.5,0.00000001,"unazad"),derivacija(np.exp,1.5,0.00000001,"unazad"),derivacija(np.exp,2.5,0.00000001,"unazad")))
+    file.write("Koristeci centralnu derivaciju, iznosi derivacija e^x u tim tockama su:\n {},{} i {} za h=0.1\n {},{} i {} za h=0.0001 i \n {},{} i {} za h=0.000001\n".format(derivacija(np.exp,0.5,0.1,"centralna"),derivacija(np.exp,1.5,0.1,"centralna"),derivacija(np.exp,2.5,0.1,"centralna"),derivacija(np.exp,0.5,0.0001,"centralna"),derivacija(np.exp,1.5,0.0001,"centralna"),derivacija(np.exp,2.5,0.0001,"centralna"),derivacija(np.exp,0.5,0.00000001,"centralna"),derivacija(np.exp,1.5,0.00000001,"centralna"),derivacija(np.exp,2.5,0.00000001,"centralna")))
+    file.write("Metoda centralne derivacije daje najbolje rezultate, jer je greska te metode reda O(h^2), dok su greske unaprijed i unazad reda O(h).\n Takoder, metoda unaprijed na pocetku 'overshoota' to jest daje vrijednost vecu od realne, a metoda unazad 'undershoota' to jest daje vrijednost manju od realne\n Sve metode imaju manju gresku sto je h manji\n")
+    file.write("Koristeci derivaciju s pet tocaka, iznosi derivacija e^x u tim tockama su:\n {},{} i {} za h=0.1\n {},{} i {} za h=0.0001 i \n {},{} i {} za h=0.000001\n".format(derivacija(np.exp,0.5,0.1,"pettocka"),derivacija(np.exp,1.5,0.1,"pettocka"),derivacija(np.exp,2.5,0.1,"pettocka"),derivacija(np.exp,0.5,0.0001,"pettocka"),derivacija(np.exp,1.5,0.0001,"pettocka"),derivacija(np.exp,2.5,0.0001,"pettocka"),derivacija(np.exp,0.5,0.00000001,"pettocka"),derivacija(np.exp,1.5,0.00000001,"pettocka"),derivacija(np.exp,2.5,0.00000001,"pettocka")))
+    file.write("Kako dodajemo veci broj tocaka, tako se povecava i red tocnosti metode, pa je greska metode s pet tocaka reda O(h^4), te daje najbolje rezultate od svih navedenih metoda\n To je ima smisla jer derivacija prikazuje zakrivljenost to jest nagib, pa nam koristenje vise tocaka daje bolji uvid u zakrivljenost funkcije.\n")
