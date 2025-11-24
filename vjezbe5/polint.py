@@ -1,10 +1,10 @@
-# import sys
+import sys
 # polint radi polinomnu interpolaciju na temelju Nevilleva algoritma
 # ulaz: NP parova podataka (xi,yi) i argument x
 # izlaz: vrijednost polinoma yN u tocki x i greska procjene dy
 def polint(xi, yi, NP, x):
-	ns=1; C=[0]; D=[0]; xa=[0]; ya=[0];
-	for i in range(NP):
+	ns=1; C=[0]; D=[0]; xa=[0]; ya=[0]; #ns: indeks najblizeg susjeda ,liste počinju s članom indexa 0
+	for i in range(NP): # NP je broj podataka 
 		xa.append(xi[i])
 		ya.append(yi[i])
 	# trazimo najblizeg susjeda (ns) od x
@@ -12,15 +12,15 @@ def polint(xi, yi, NP, x):
 	for i in range(1,NP+1):
 		dx=abs(x-xa[i])
 		if (dx < mdx): # udaljenost od ostalih cvorova
-			ns=i
+			ns=i # novi najblizi susjed
 			mdx=dx # minimala udaljenost
 		# pocetne vrijednosti (nulti stupac)
 		C.append(ya[i])
 		D.append(ya[i])
 	yN=ya[ns] # prva aproksimacija (prvi stupac)
-	ns=ns-1
-	for m in range(1,NP):         # za svaki stupac
-		for i in range(1,NP-m+1): # za svaki redak
+	ns=ns-1 # prilagodba indeksa za daljnje korake
+	for m in range(1,NP):         # za svaki stupac (ima ih NP-1)
+		for i in range(1,NP-m+1): # za svaki redak (za dani stupac ima ih NP-m)
 			bCx=xa[i]-x         # brojnik u C: razlika x-eva
 			bDx=xa[i+m]-x       # brojnik u D: razlika x-eva
 			CD=C[i+1]-D[i]       # razlika iz prethodnog stupca
