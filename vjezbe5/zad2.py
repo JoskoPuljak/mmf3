@@ -48,7 +48,7 @@ with open("V(H_H)_inter.txt","w") as file4:
         V_neville,dV_neville=pol.polint(x_lista,y_lista,len(x_lista),x)
         lista_neville.append(V_neville)
         lista_dV_neville.append(abs(dV_neville))
-        V_spline=sp.CubicSpline(x_lista,y_lista)(x)
+        V_spline=sp.CubicSpline(x_lista,y_lista,bc_type=((1,185.45048),(1,0.0309242)))(x)
         lista_spline.append(V_spline)
         V_diff=V_spline - V_neville
         file4.write(f" {x:<8.4f}  {V_lagrange:<13.6f}  {V_neville:<13.6f}  {dV_neville:<13.6f}  {V_spline:<13.6f}  {V_diff:<13.6f}\n")
