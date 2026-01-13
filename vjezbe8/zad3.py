@@ -4,11 +4,12 @@ a=0.01
 deltax=0.2
 L=20
 deltat=0.5
-konstanta=(deltat/(deltax)**2)/a
+konstanta=(deltat/(deltax)**2)*a
+
 end=int(round(L/deltax))
 print(end)
 početni=[0 for i in range(0,end+1)]
-for i in range(2*5,5*5):
+for i in range(2*2,5*2):
     početni[i]=5.5
 x=[0.2*i for i in range (0,len(početni))]
 plt.plot(x,početni)
