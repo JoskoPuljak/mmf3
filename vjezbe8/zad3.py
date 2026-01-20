@@ -9,11 +9,11 @@ konstanta=(deltat/(deltax)**2)*a
 end=int(round(L/deltax))
 print(end)
 početni=[0 for i in range(0,end+1)]
-for i in range(2*2,5*2):
+for i in range(2*int(1//deltax),5*int(1//deltax)):
     početni[i]=5.5
-x=[0.2*i for i in range (0,len(početni))]
-plt.plot(x,početni)
-print(početni)
+x=[i*deltax for i in range (0,len(početni))]
+plt.plot(x,početni,label="t=0")
+#print(početni)
 def diffusion(initial,constant,n):
     rjesenje=initial
     for j in range(1,n+1):
@@ -22,7 +22,8 @@ def diffusion(initial,constant,n):
             rjesenje_j[i]=constant*rjesenje[i+1]+(1-2*constant)*rjesenje[i]+constant*rjesenje[i-1]
         rjesenje=rjesenje_j
         if j in [100,200,300,400]:
-            print(rjesenje)
-            plt.plot(x,rjesenje)
+            #print(rjesenje)
+            plt.plot(x,rjesenje,label="t={}s".format(round(j*deltat)))
+    plt.legend()
     plt.show()
 diffusion(početni,konstanta,400)
