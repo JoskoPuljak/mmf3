@@ -41,7 +41,28 @@ def euler(t_in,t_fin,N,theta0,f):
         omega.append(k_omega*step+omega[-1])
         theta.append(k_theta*step+theta[-1])
     return t,theta,omega
-
+def prediktor_korektor(t_in,t_fin,N,theta0,f):
+    step=(t_fin-t_in)/N
+    t=[0]
+    omega=[0]
+    theta=[theta0]
+    for i in np.arange(t_in,t_fin+step,step):
+        #prediktor
+        k_omega=f(theta[-1])
+        k_theta=omega[-1]
+        omega_p=k_omega*step+omega[-1]
+        theta_p=k_theta*step+theta[-1]
+        sw=k_omega
+        sk=k_theta
+        #korektor
+        k_omega=f(theta_p)
+        sw+=k_omega
+        k_theta=omega_p
+        sk+=k_theta
+        omega.append(0.5*(sw)*step+omega[-1])
+        theta.append(0.5*(sk)*step+theta[-1])
+        t.append(i)
+    return t,theta,omega
 
 
 def runge_kutta(t_in,t_fin,N,theta0,f):
